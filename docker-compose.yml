@@ -1,7 +1,7 @@
 services:
   pihole:
     container_name: pihole
-    image: pihole/2022.09 # Date-based release that can receive bugfix updates
+    image: pihole/pihole:2022.09 # Date-based release that can receive bugfix updates
     ports:
       - "53:53/tcp"
       - "53:53/udp"
@@ -10,11 +10,12 @@ services:
 
     environment:
       TZ: "America/Denver"
-      WEBPASSWORD: ${PIHOLE_WEBPASSWORD}
       PIHOLE_DNS_: "1.1.1.1;1.0.0.1"
       DNSSEC: "true"
       WEBTHEME: "default-dark"
       DNSMASQ_LISTENING: "local"
+      PIHOLE_DOMAIN: "pihole.birki.net"
+      WEBPASSWORD_FILE: WEBPASSWORD_FILE.txt
 
     # Volumes store your data between container upgrades
     volumes:

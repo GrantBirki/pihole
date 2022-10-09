@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "🔒 Creating a random password for your pihole..."
+
+password=$(uuidgen)
+echo "🔑 Your password is: $password"
+echo $password > WEBPASSWORD_FILE.txt
