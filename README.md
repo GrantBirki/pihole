@@ -1,5 +1,7 @@
 # pihole 🥧
 
+[![release](https://github.com/GrantBirki/pihole/actions/workflows/release.yml/badge.svg)](https://github.com/GrantBirki/pihole/actions/workflows/release.yml)
+
 Custom pihole configuration for my homelab
 
 ## About 💡
