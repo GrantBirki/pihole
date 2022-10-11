@@ -15,7 +15,9 @@ services:
       WEBTHEME: "default-dark"
       DNSMASQ_LISTENING: "local"
       PIHOLE_DOMAIN: "pihole.birki.net"
-      WEBPASSWORD_FILE: WEBPASSWORD_FILE.txt
+      WEBPASSWORD_FILE: /run/secrets/WEBPASSWORD_FILE
+    secrets:
+       - WEBPASSWORD_FILE
 
     # Volumes store your data between container upgrades
     volumes:
@@ -27,3 +29,7 @@ services:
     # - NET_ADMIN
 
     restart: unless-stopped
+
+secrets:
+  WEBPASSWORD_FILE:
+    file: WEBPASSWORD_FILE.txt
