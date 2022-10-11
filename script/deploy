@@ -21,7 +21,7 @@ CURRENT_TAG=$(git describe --tags)
 # a deployment is a git checkout (force) of the latest tag and a restart of the docker compose stack using the latest code
 if [ "$LATEST_TAG" != "$CURRENT_TAG" ]; then
     echo "New release found: $LATEST_TAG"
-    echo "Updating to $LATEST_TAG"
+    echo "Updating to: $LATEST_TAG"
     git checkout -f $LATEST_TAG
     echo "Restarting docker compose stack"
     make run
