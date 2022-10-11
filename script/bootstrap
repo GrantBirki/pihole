@@ -1,7 +1,88 @@
 #!/bin/bash
 
-echo "🔒 Creating a random password for your pihole..."
+# Usage:
+# script/bootstrap
 
-password=$(uuidgen)
-echo "🔑 Your password is: $password"
-echo $password > WEBPASSWORD_FILE.txt
+# COLORS
+OFF='\033[0m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+
+# exit on error
+set -e
+
+# Check to ensure Docker is installed
+if ! [ -x "$(command -v docker)" ]; then
+  echo -e "${RED}Docker is not installed. Please install Docker and try again.${OFF}"
+  exit 1
+else
+    echo -e "✔️  ${GREEN}Docker is installed${OFF}"
+fi
+
+# Check to ensure Docker Compose is installed
+if ! [ -x "$(command -v docker-compose)" ]; then
+  echo -e "${RED}Docker Compose is not installed. Please install Docker Compose and try again.${OFF}"
+  exit 1
+else
+    echo -e "✔️  ${GREEN}Docker Compose is installed${OFF}"
+fi
+
+# Check to ensure Git is installed
+if ! [ -x "$(command -v git)" ]; then
+  echo -e "${RED}Git is not installed. Please install Git and try again.${OFF}"
+  exit 1
+else
+    echo -e "✔️  ${GREEN}Git is installed${OFF}"
+fi
+
+# Check to ensure curl is installed
+if ! [ -x "$(command -v curl)" ]; then
+  echo -e "${RED}CURL is not installed. Please install CURL and try again.${OFF}"
+  exit 1
+else
+    echo -e "✔️  ${GREEN}CURL is installed${OFF}"
+fi
+
+# Check to ensure ports 53 and 8000 are open
+if lsof -Pi :53 -sTCP:LISTEN -t >/dev/null ; then
+    echo -e "${RED}Port 53 is already in use. Please free up port 53 and try again.${OFF}"
+    exit 1
+else
+    echo -e "✔️  ${GREEN}Port 53 is available${OFF}"
+fi
+
+if lsof -Pi :8000 -sTCP:LISTEN -t >/dev/null ; then
+    echo -e "${RED}Port 8000 is already in use. Please free up port 8000 and try again.${OFF}"
+    exit 1
+else
+    echo -e "✔️  ${GREEN}Port 8000 is available${OFF}"
+fi
+
+# Get the repo root directory
+REPO_ROOT=$(git rev-parse --show-toplevel)
+
+# Check if the user wants to generate a new password
+echo ""
+read -p "Proceed with generating a password (y/n)? " CONT
+echo ""
+if [ "$CONT" = "y" ]; then
+  echo "🔒 Creating a random password for your pihole..."
+  password=$(uuidgen)
+  echo -e "🔑 Your password is: ${BLUE}${password}${OFF}"
+  echo $password > WEBPASSWORD_FILE.txt
+  echo -e "💾 Your password has been saved to ${BLUE}WEBPASSWORD_FILE.txt${OFF}. This is where Docker will look for it so don't lose it!"
+fi
+
+# Check if the user wants to add/re-add the 1 minute cron job to the crontab for regular updates
+echo ""
+read -p "Proceed with adding auto deployment update cronjob (y/n)? " CONT
+echo ""
+if [ "$CONT" = "y" ]; then
+  echo "📝 Adding the auto deployment update cronjob to your crontab..."
+  (crontab -l ; echo "* * * * * bash ${REPO_ROOT}/script/deploy") | crontab -
+  echo -e "✔️  ${GREEN}The auto deployment cronjob has been added${OFF}"
+fi
+
+echo ""
+echo -e "✔️  ${GREEN}Bootstrap completed successfully${OFF}"
