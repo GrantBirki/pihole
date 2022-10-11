@@ -13,7 +13,8 @@ cd $REPO_DIR
 
 # pull the latest release tag and check to see if it's different from the current tag
 git fetch --tags
-LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+# only use vX.X.X tags for comparison
+LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1` | grep -oP 'v\d+\.\d+\.\d+')
 CURRENT_TAG=$(git describe --tags)
 
 # if the tag is different, then deploy
@@ -21,7 +22,7 @@ CURRENT_TAG=$(git describe --tags)
 if [ "$LATEST_TAG" != "$CURRENT_TAG" ]; then
     echo "New release found: $LATEST_TAG"
     echo "Updating to $LATEST_TAG"
-    # git checkout -f $LATEST_TAG
+    git checkout -f $LATEST_TAG
     echo "Restarting docker compose stack"
     make run
 else
