@@ -10,11 +10,11 @@ services:
 
     environment:
       TZ: "America/Denver"
-      PIHOLE_DNS_: "1.1.1.1;1.0.0.1"
+      PIHOLE_DNS_: "1.1.1.1;1.0.0.1" # cloudflare DNS
       DNSSEC: "true"
       WEBTHEME: "default-dark"
-      DNSMASQ_LISTENING: "local"
-      PIHOLE_DOMAIN: "pihole.birki.net"
+      DNSMASQ_LISTENING: "local" # only listen to DNS requests on the local network (at most one hop away)
+      PIHOLE_DOMAIN: "pihole.birki.net" # set domain name here or comment out to use default
       WEBPASSWORD_FILE: /run/secrets/WEBPASSWORD_FILE
     secrets:
        - WEBPASSWORD_FILE
