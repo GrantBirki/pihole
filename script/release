@@ -27,4 +27,5 @@ echo -e "${GREEN}OK${OFF} - Tagged: $new_tag"
 git push --tags
 
 echo -e "${GREEN}OK${OFF} - Tags pushed to remote!"
+echo -e "${BLUE}OK${OFF} - GitHub Actions will automatically puslish a release - You are all done!"
 echo -e "${GREEN}DONE${OFF}"
