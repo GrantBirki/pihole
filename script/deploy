@@ -24,7 +24,7 @@ if [ "$LATEST_TAG" != "$CURRENT_TAG" ]; then
     echo "Updating to: $LATEST_TAG"
     git checkout -f $LATEST_TAG
     echo "Restarting docker compose stack"
-    make run
+    sudo make run
 else
     echo "No new release found"
 fi
