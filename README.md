@@ -45,7 +45,7 @@ The `script/bootstrap` script will do the following for you automatically:
 
 1. Check to ensure all dependencies are installed
 2. Generate a random password for the pihole admin panel and store it in the `WEBPASSWORD_FILE.txt` file in the root of this repo
-3. Setup a cronjob that will automatically look for new release tags from the source repo and update the stack if a new release is found
+3. Setup a cronjob that will automatically pull changes from GitHub and restart the container when a new change is detected
 
 ## Release 🏷️
 
