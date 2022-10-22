@@ -13,7 +13,7 @@ cd $REPO_DIR
 
 # run git pull and if there are changes, restart the server
 pull_result=$(git pull)
-if [[ $pull_result == *"Already up-to-date"* ]]; then
+if [[ $pull_result == *"Already up to date."* ]]; then
     echo "No changes to pull"
 else
     echo "Changes pulled, restarting server"
