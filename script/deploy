@@ -12,8 +12,8 @@ REPO_DIR=$(git rev-parse --show-toplevel)
 cd $REPO_DIR
 
 # run git pull and if there are changes, restart the server
-git pull
-if [ $? -eq 0 ]; then
+pull_result=$(git pull)
+if [[ $pull_result == *"Already up-to-date"* ]]; then
     echo "No changes to pull"
 else
     echo "Changes pulled, restarting server"
