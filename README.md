@@ -10,6 +10,10 @@ This repository contains my custom pihole configuration to deploy a Docker conta
 
 It works by using the official pihole Docker image and running a cronjob to look for new tags published to this repo. This way, I can maintain my infrastructure through the GitHub flow!
 
+## Updating ✔
+
+To update, check out the official [release page](https://github.com/pi-hole/docker-pi-hole/releases)
+
 ## Usage 💻
 
 Run the following command (`make run`) to start the Docker Compose stack:
