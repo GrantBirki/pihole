@@ -14,7 +14,7 @@ services:
       DNSSEC: "true"
       WEBTHEME: "default-dark"
       DNSMASQ_LISTENING: "all" # need to listen on all interfaces as we are on a docker network
-      PIHOLE_DOMAIN: "pihole.birki.net" # set domain name here or comment out to use default
+      PIHOLE_DOMAIN: "pihole.birki.io" # set domain name here or comment out to use default
       WEBPASSWORD_FILE: /run/secrets/WEBPASSWORD_FILE
     secrets:
        - WEBPASSWORD_FILE
