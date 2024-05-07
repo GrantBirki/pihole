@@ -17,5 +17,5 @@ if [[ $pull_result == *"Already up to date."* ]]; then
     echo "No changes to pull"
 else
     echo "Changes pulled, restarting server"
-    sudo make run
+    make run
 fi
