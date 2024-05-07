@@ -20,14 +20,6 @@ else
     echo -e "✔️  ${GREEN}Docker is installed${OFF}"
 fi
 
-# Check to ensure Docker Compose is installed
-if ! [ -x "$(command -v docker-compose)" ]; then
-  echo -e "${RED}Docker Compose is not installed. Please install Docker Compose and try again.${OFF}"
-  exit 1
-else
-    echo -e "✔️  ${GREEN}Docker Compose is installed${OFF}"
-fi
-
 # Check to ensure Git is installed
 if ! [ -x "$(command -v git)" ]; then
   echo -e "${RED}Git is not installed. Please install Git and try again.${OFF}"
