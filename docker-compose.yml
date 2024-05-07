@@ -9,7 +9,7 @@ services:
       - "8000:80/tcp"
 
     environment:
-      TZ: "America/Denver"
+      TZ: "America/Los_Angeles"
       PIHOLE_DNS_: "1.1.1.1;1.0.0.1" # cloudflare DNS
       DNSSEC: "true"
       WEBTHEME: "default-dark"
