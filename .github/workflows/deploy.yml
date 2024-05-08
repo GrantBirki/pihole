@@ -38,4 +38,4 @@ jobs:
       - name: start deployment
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh api repos/:owner/:repo/deployments -X POST -F ref=main -F environment=production
+        run: gh api repos/:owner/:repo/deployments -X POST -F ref=main -F environment=production -F required_contexts=[] -F description="main branch deployment"
