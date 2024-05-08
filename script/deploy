@@ -75,5 +75,19 @@ sudo docker compose up --build -d
 
 echo "[+] Containers are now running!"
 
+# Poll for 60 seconds to ensure all containers are healthy
+end=$((SECONDS+60))
+
+while [ $SECONDS -lt $end ]; do
+  # Check the status of all containers
+  if [ "$(docker-compose ps -q | xargs docker inspect -f '{{.State.Health.Status}}' | grep -v healthy)" = "" ]; then
+    echo "All containers are healthy."
+    break
+  else
+    echo "Waiting for containers to become healthy..."
+    sleep 5
+  fi
+done
+
 # for runway
 echo remote-deploy-success
