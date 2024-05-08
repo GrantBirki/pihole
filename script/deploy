@@ -80,7 +80,7 @@ end=$((SECONDS+60))
 
 while [ $SECONDS -lt $end ]; do
   # Check the status of all containers
-  if [ "$(docker-compose ps -q | xargs docker inspect -f '{{.State.Health.Status}}' | grep -v healthy)" = "" ]; then
+  if [ "$(sudo docker compose ps -q | xargs sudo docker inspect -f '{{.State.Health.Status}}' | grep -v healthy)" = "" ]; then
     echo "All containers are healthy."
     break
   else
