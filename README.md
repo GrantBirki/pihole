@@ -18,7 +18,7 @@ Beyond the initial setup, all deployments are facilitated by my personal `runway
 
 ## Configuration ⚙️
 
-All configration takes place in the [`docker-compose.yml`](docker-compose.yml) file in the root of this repository.
+All configration takes place in the [`docker-compose.yml`](docker-compose.yml) file in the root of this repository
 
 For additional options, see the official documentation [here](https://github.com/pi-hole/docker-pi-hole)
 
