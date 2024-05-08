@@ -38,4 +38,7 @@ jobs:
       - name: start deployment
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh api repos/:owner/:repo/deployments -X POST -F ref=main -F environment=production -F required_contexts[] -F description="main branch deployment"
+        run: |
+          DEPLOYMENT_RESPONSE=$(echo '{"ref":"main","environment":"production","required_contexts":[],"description":"main branch deployment"}' | gh api repos/:owner/:repo/deployments -X POST --input -)
+          DEPLOYMENT_ID=$(echo $DEPLOYMENT_RESPONSE | jq .id)
+          echo '{"state":"in_progress"}' | gh api repos/:owner/:repo/deployments/$DEPLOYMENT_ID/statuses -X POST --input -
