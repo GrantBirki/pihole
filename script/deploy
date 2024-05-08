@@ -57,10 +57,14 @@ if [[ -n $fork ]]; then
   forkarray=($fork)
   git checkout -b $fork || git fetch --all && git reset --hard origin/$BASE_BRANCH && git branch -D $fork && git checkout -b $fork
   git pull "https://github.com/$fork_full_name.git" ${forkarray[1]}
-else
+# If an exact $ref was provided, checkout that ref
+elif [[ -n $ref ]]; then
   echo "branch deployment requested"
   git fetch --all
   git reset --hard origin/$ref
+# otherwise, just stay on the current branch
+else
+  echo "current repo deployment requested"
 fi
 
 echo "[-] Killing old docker processes"
