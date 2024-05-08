@@ -66,15 +66,5 @@ if [ "$CONT" = "y" ]; then
   echo -e "💾 Your password has been saved to ${BLUE}WEBPASSWORD_FILE.txt${OFF}. This is where Docker will look for it so don't lose it!"
 fi
 
-# Check if the user wants to add/re-add the 1 minute cron job to the crontab for regular updates
-echo ""
-read -p "Proceed with adding auto deployment update cronjob (y/n)? " CONT
-echo ""
-if [ "$CONT" = "y" ]; then
-  echo "📝 Adding the auto deployment update cronjob to your crontab..."
-  (crontab -l ; echo "* * * * * bash ${REPO_ROOT}/script/deploy") | crontab -
-  echo -e "✔️  ${GREEN}The auto deployment cronjob has been added${OFF}"
-fi
-
 echo ""
 echo -e "✔️  ${GREEN}Bootstrap completed successfully${OFF}"
