@@ -1,0 +1,48 @@
+name: branch-deploy
+
+# The workflow to execute on is comments that are newly created
+on:
+  issue_comment:
+    types: [created]
+
+# Permissions needed for reacting and adding comments for IssueOps commands
+permissions:
+  pull-requests: write
+  deployments: write
+  contents: write
+  checks: read
+  statuses: read
+
+jobs:
+  # branch-deploy trigger job
+  trigger:
+    if: # only run on pull request comments and very specific comment body string as defined in our branch-deploy settings
+      ${{ github.event.issue.pull_request &&
+      (contains(github.event.comment.body, '.deploy') ||
+      contains(github.event.comment.body, '.lock') ||
+      contains(github.event.comment.body, '.noop') ||
+      contains(github.event.comment.body, '.help') ||
+      contains(github.event.comment.body, '.wcid') ||
+      contains(github.event.comment.body, '.unlock')) }}
+    runs-on: ubuntu-latest
+    outputs: # set outputs for use in downstream jobs
+      continue: ${{ steps.branch-deploy.outputs.continue }}
+      noop: ${{ steps.branch-deploy.outputs.noop }}
+      deployment_id: ${{ steps.branch-deploy.outputs.deployment_id }}
+      environment: ${{ steps.branch-deploy.outputs.environment }}
+      ref: ${{ steps.branch-deploy.outputs.ref }}
+      comment_id: ${{ steps.branch-deploy.outputs.comment_id }}
+      initial_reaction_id: ${{ steps.branch-deploy.outputs.initial_reaction_id }}
+      actor_handle: ${{ steps.branch-deploy.outputs.actor_handle }}
+
+    steps:
+      # execute the branch-deploy action
+      - uses: github/branch-deploy@v9
+        id: branch-deploy
+        with:
+          trigger: '.deploy'
+          skip_completing: 'true' # we will complete the deployment manually in the 'result' job
+          admins: 'GrantBirki'
+
+# this effectively starts a new deployment. runway will look for this new deployment and act on it
+# once runway sees this deployment, it will do what it is configured to do (by the user) and then it will complete the deployment as either a success or failure
