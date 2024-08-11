@@ -4,6 +4,8 @@
 
 Custom pihole configuration for my homelab
 
+> [Latest PiHole (Docker) Releases](https://github.com/pi-hole/docker-pi-hole/releases) 🏷️
+
 ## About 💡
 
 This repository contains my custom pihole configuration to deploy a Docker container to a raspberry pi to block ads.
