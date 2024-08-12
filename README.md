@@ -2,7 +2,7 @@
 
 [![deploy](https://github.com/GrantBirki/pihole/actions/workflows/deploy.yml/badge.svg)](https://github.com/GrantBirki/pihole/actions/workflows/deploy.yml)
 
-Custom pihole configuration for my homelab
+Custom pihole configuration for my homelab.
 
 > [Latest PiHole (Docker) Releases](https://github.com/pi-hole/docker-pi-hole/releases) 🏷️
 
